@@ -4,6 +4,7 @@
 with open("./data/sample.txt", "r") as fil:
     next(fil)
     next(fil)
+    print("date_time, lat, lng, depth, magnitude, area")
     for row in fil:
         cols = [x for x in row.replace("\n", "").split(" ") if len(x) > 0]
         if len(cols) == 0:
@@ -45,3 +46,5 @@ with open("./data/sample.txt", "r") as fil:
         depth = cols[index]
         magnitude = cols[index + 1]
         area = cols[index + 2]
+
+        print(date_time, lat, lng, depth, magnitude, area, sep=",")

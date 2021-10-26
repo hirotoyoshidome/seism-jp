@@ -1,3 +1,4 @@
+# convert to csv file from txt.
 # credit : https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200101.html
 
 with open("./data/sample.txt", "r") as fil:

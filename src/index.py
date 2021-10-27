@@ -1,7 +1,11 @@
 # convert to csv file from txt.
-# credit : https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200101.html
+# credit :
+# https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200101.html
+# https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200102.html
 
-with open("./data/sample.txt", "r") as fil:
+
+filepath = "./data/2020-02.txt"
+with open(filepath, "r") as fil:
     next(fil)
     next(fil)
     print("date_time, lat, lng, depth, magnitude, area")

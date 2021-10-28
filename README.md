@@ -20,3 +20,10 @@ npm ci
 * https://openlayers.org/two/
   * unzip donwloaded file.
   * move src dir.
+
+### RUN APP
+
+```
+cd seism-jp
+python3 app.py
+```

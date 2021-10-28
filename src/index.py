@@ -77,16 +77,16 @@ def convert_csv_from_txt() -> None:
             print(date_time, lat, lng, depth, magnitude, area, sep=",")
 
 
-def convert_location(loc):
+def convert_location(loc: str) -> float:
     """
     Convert 60-ary to decimal.
     """
-    t = loc.replace("N", "").replace("E", "")
+    t: str = loc.replace("N", "").replace("E", "")
     li = t.split("°")
     return float(li[0]) + (float(li[1].replace("'", "")) / 60)
 
 
-def convert_geodetic_datum():
+def convert_geodetic_datum() -> None:
     """
     Convert japanese geodetic system to global geodetic system.
     """

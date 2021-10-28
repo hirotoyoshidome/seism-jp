@@ -32,7 +32,7 @@ def main() -> None:
 
     df = df.drop(["lat", "lng"], axis=1)
 
-    print(df.head())
+    get_lonlat_list(df)
 
 
 # FUNCTION
@@ -113,6 +113,18 @@ def convert_geodetic_datum(latitude: float, longitude: float) -> tuple:
         longitude - 0.000046038 * latitude - 0.000083043 * longitude + 0.01004
     )
     return (converted_latitude, converted_longitude)
+
+
+def get_lonlat_list(df) -> None:
+    """
+    get lonlat list for open street map.
+    """
+    nda = df.loc[:, ["convd_lng", "convd_lat"]].to_numpy()
+    res = []
+    for d in nda:
+        tmp = "[{0},{1}]".format(d[0], d[1])
+        res.append(tmp)
+    print(",\n".join(res))
 
 
 if __name__ == "__main__":

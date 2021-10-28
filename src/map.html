@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Point of Earthquake.</title>
+    <style type="text/css">
+      html, body, #basicMap {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+      }
+    </style>
+    <script src="./OpenLayers-2.13.1/OpenLayers.js"></script>
+    <script>
+      const lonlatList = [
+        [137.2529, 36.2048],
+        [136.2529, 36.2048],
+      ]
+      function init() {
+        const map = new OpenLayers.Map("basicMap");
+        const mapnik = new OpenLayers.Layer.OSM();
+        const fromProjection = new OpenLayers.Projection("EPSG:4326");
+        const toProjection = new OpenLayers.Projection("EPSG:900913");
+        // japan center position.
+        const position = new OpenLayers.LonLat(138.2529, 36.2048).transform(fromProjection, toProjection);
+        // all view japan.
+        const zoom = 6;
+        map.addLayer(mapnik);
+        map.setCenter(position, zoom);
+
+        // add marker.
+        const markers = new OpenLayers.Layer.Markers("Markers");
+        map.addLayer(markers);
+        for (let i = 0; i < lonlatList.length; i++) {
+            const lonlat = lonlatList[i];
+            const pos = new OpenLayers.LonLat(lonlat[0], lonlat[1]).transform(fromProjection, toProjection);
+            markers.addMarker(new OpenLayers.Marker(pos));
+        }
+      }
+    </script>
+  </head>
+  <body onload="init();">
+    <div id="basicMap"></div>
+  </body>
+</html>

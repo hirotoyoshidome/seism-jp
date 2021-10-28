@@ -1,15 +1,37 @@
+import pandas as pd
+
+
 # convert to csv file from txt.
 # credit :
 # https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200101.html
 # https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200102.html
 
 
+# MAIN
 def main() -> None:
+    # If you exist csv file, this function is commented out.
+    # convert_csv_from_txt()
+
+    df = pd.read_csv("./output/2020-01.csv")
+
+    # Latitude.
+    df["lat"] = df["lat"].apply(lambda x: convert_location(x))
+    # Longitude.
+    df["lng"] = df["lng"].apply(lambda x: convert_location(x))
+    print(df.head())
+
+
+# FUNCTION
+def convert_csv_from_txt() -> None:
+    """
+    Convert csv file from txt file.
+    This txt file is copied from credit.
+    """
     filepath = "./data/2020-02.txt"
     with open(filepath, "r") as fil:
         next(fil)
         next(fil)
-        print("date_time, lat, lng, depth, magnitude, area")
+        print("date_time,lat,lng,depth,magnitude,area")
         for row in fil:
             cols = [x for x in row.replace("\n", "").split(" ") if len(x) > 0]
             if len(cols) == 0:
@@ -53,6 +75,22 @@ def main() -> None:
             area: str = cols[index + 2]
 
             print(date_time, lat, lng, depth, magnitude, area, sep=",")
+
+
+def convert_location(loc):
+    """
+    Convert 60-ary to decimal.
+    """
+    t = loc.replace("N", "").replace("E", "")
+    li = t.split("°")
+    return float(li[0]) + (float(li[1].replace("'", "")) / 60)
+
+
+def convert_geodetic_datum():
+    """
+    Convert japanese geodetic system to global geodetic system.
+    """
+    pass
 
 
 if __name__ == "__main__":

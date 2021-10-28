@@ -4,7 +4,7 @@
 # https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200102.html
 
 
-def main():
+def main() -> None:
     filepath = "./data/2020-02.txt"
     with open(filepath, "r") as fil:
         next(fil)
@@ -15,11 +15,13 @@ def main():
             if len(cols) == 0:
                 continue
 
-            date_time = "{0}-{1}-{2} {3}:{4}".format(cols[0], cols[1], cols[2], cols[3], cols[4])
+            date_time: str = "{0}-{1}-{2} {3}:{4}".format(
+                cols[0], cols[1], cols[2], cols[3], cols[4]
+            )
 
-            lat = None
-            lng = None
-            index = None
+            lat: str = ""
+            lng: str = "None"
+            index: int = 0
             if len(cols) == 10:
                 lat = cols[5]
                 lng = cols[6]
@@ -46,9 +48,9 @@ def main():
                 lng = cols[7] + cols[8]
                 index = 9
 
-            depth = cols[index]
-            magnitude = cols[index + 1]
-            area = cols[index + 2]
+            depth: str = cols[index]
+            magnitude: str = cols[index + 1]
+            area: str = cols[index + 2]
 
             print(date_time, lat, lng, depth, magnitude, area, sep=",")
 

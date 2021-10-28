@@ -15,9 +15,23 @@ def main() -> None:
     df = pd.read_csv("./output/2020-01.csv")
 
     # Latitude.
-    df["lat"] = df["lat"].apply(lambda x: convert_location(x))
+    lat_list = df["lat"].apply(lambda x: convert_location(x)).to_numpy()
     # Longitude.
-    df["lng"] = df["lng"].apply(lambda x: convert_location(x))
+    lng_list = df["lng"].apply(lambda x: convert_location(x)).to_numpy()
+
+    # Convert geodetic datum.
+    convd_lat = []
+    convd_lng = []
+    for lat, lng in zip(lat_list, lng_list):
+        conv = convert_geodetic_datum(lat, lng)
+        convd_lat.append(conv[0])
+        convd_lng.append(conv[1])
+
+    df["convd_lat"] = convd_lat
+    df["convd_lng"] = convd_lng
+
+    df = df.drop(["lat", "lng"], axis=1)
+
     print(df.head())
 
 
@@ -86,11 +100,19 @@ def convert_location(loc: str) -> float:
     return float(li[0]) + (float(li[1].replace("'", "")) / 60)
 
 
-def convert_geodetic_datum() -> None:
+def convert_geodetic_datum(latitude: float, longitude: float) -> tuple:
     """
     Convert japanese geodetic system to global geodetic system.
+    type = 1 latitude
+    type = 2 longitude
     """
-    pass
+    converted_latitude: float = (
+        latitude - 0.00010695 * latitude + 0.000017464 * longitude + 0.0046017
+    )
+    converted_longitude: float = (
+        longitude - 0.000046038 * latitude - 0.000083043 * longitude + 0.01004
+    )
+    return (converted_latitude, converted_longitude)
 
 
 if __name__ == "__main__":

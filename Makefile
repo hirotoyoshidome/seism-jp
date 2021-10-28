@@ -13,7 +13,7 @@ format-python:
 	black .
 
 format-js:
-	./node_modules/prettier/bin-prettier.js --write ./src/*.js
+	./node_modules/prettier/bin-prettier.js --write ./seism-jp/static/js/*.js
 
 type-python:
 	mypy .

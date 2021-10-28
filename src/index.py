@@ -1,4 +1,5 @@
 import pandas as pd
+from typing import Any
 
 
 # convert to csv file from txt.
@@ -115,7 +116,7 @@ def convert_geodetic_datum(latitude: float, longitude: float) -> tuple:
     return (converted_latitude, converted_longitude)
 
 
-def get_lonlat_list(df) -> None:
+def get_lonlat_list(df: Any) -> None:
     """
     get lonlat list for open street map.
     """

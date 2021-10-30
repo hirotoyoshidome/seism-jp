@@ -1,5 +1,8 @@
 import pandas as pd
+import requests
+from bs4 import BeautifulSoup
 from typing import Any
+import csv
 
 
 # convert to csv file from txt.
@@ -7,46 +10,79 @@ from typing import Any
 # https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200101.html
 # https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200102.html
 
+# CONST
+DOWNLOAD_PATH = "./data/"
 
 # MAIN
 def main() -> None:
-    # If you exist csv file, this function is commented out.
-    # convert_csv_from_txt()
+    urls = [
+        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200101.html",
+        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200102.html",
+    ]
 
-    df = pd.read_csv("./output/2020-01.csv")
+    for url in urls:
+        key = url.split("/")[-1].replace(".html", "")
+        # get txt file.
+        txt_file_path = get_data_from_web(url, key)
+        if txt_file_path is None:
+            print("Txt File Download Error.")
+            exit(1)
 
-    # Latitude.
-    lat_list = df["lat"].apply(lambda x: convert_location(x)).to_numpy()
-    # Longitude.
-    lng_list = df["lng"].apply(lambda x: convert_location(x)).to_numpy()
+        # convert csv file.
+        csv_file_path = convert_csv_from_txt(txt_file_path, key)
 
-    # Convert geodetic datum.
-    convd_lat = []
-    convd_lng = []
-    for lat, lng in zip(lat_list, lng_list):
-        conv = convert_geodetic_datum(lat, lng)
-        convd_lat.append(conv[0])
-        convd_lng.append(conv[1])
+        df = pd.read_csv(csv_file_path)
 
-    df["convd_lat"] = convd_lat
-    df["convd_lng"] = convd_lng
+        # Latitude.
+        lat_list = df["lat"].apply(lambda x: convert_location(x)).to_numpy()
+        # Longitude.
+        lng_list = df["lng"].apply(lambda x: convert_location(x)).to_numpy()
 
-    df = df.drop(["lat", "lng"], axis=1)
+        # Convert geodetic datum.
+        convd_lat = []
+        convd_lng = []
+        for lat, lng in zip(lat_list, lng_list):
+            conv = convert_geodetic_datum(lat, lng)
+            convd_lat.append(conv[0])
+            convd_lng.append(conv[1])
 
-    get_lonlat_list(df)
+        df["convd_lat"] = convd_lat
+        df["convd_lng"] = convd_lng
+
+        df = df.drop(["lat", "lng"], axis=1)
+
+        # get_lonlat_list(df)
 
 
 # FUNCTION
-def convert_csv_from_txt() -> None:
+def get_data_from_web(url:str, key: str) -> str:
+    """
+    Get Seism data from web that JMA.
+    """
+    selector = "#menu > li > ul > pre"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, 'html.parser')
+    data = soup.select(selector)[0]
+    if data is not None:
+        data = str(data).replace("<pre>\n", "").replace("</pre>", "")
+        txt_file_path = DOWNLOAD_PATH + key + ".txt"
+        with open(txt_file_path, "w") as fil:
+            fil.write(data)
+            fil.close()
+        return txt_file_path
+    else:
+        return None
+
+
+def convert_csv_from_txt(txt_file_path: str, key: str) -> str:
     """
     Convert csv file from txt file.
     This txt file is copied from credit.
     """
-    filepath = "./data/2020-02.txt"
-    with open(filepath, "r") as fil:
+    data = []
+    with open(txt_file_path, "r") as fil:
         next(fil)
         next(fil)
-        print("date_time,lat,lng,depth,magnitude,area")
         for row in fil:
             cols = [x for x in row.replace("\n", "").split(" ") if len(x) > 0]
             if len(cols) == 0:
@@ -89,7 +125,26 @@ def convert_csv_from_txt() -> None:
             magnitude: str = cols[index + 1]
             area: str = cols[index + 2]
 
-            print(date_time, lat, lng, depth, magnitude, area, sep=",")
+            data.append(
+                {
+                    "date_time": date_time,
+                    "lat": lat,
+                    "lng": lng,
+                    "depth": depth,
+                    "magnitude": magnitude,
+                    "area": area,
+                }
+            )
+    # output
+    csv_file_path = DOWNLOAD_PATH + key + ".csv"
+    with open(csv_file_path, "w") as fil:
+        writer = csv.DictWriter(fil, fieldnames=data[0].keys())
+        writer.writeheader()
+        for d in data:
+            writer.writerow(d)
+        fil.close()
+
+    return csv_file_path
 
 
 def convert_location(loc: str) -> float:

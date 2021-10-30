@@ -1,5 +1,5 @@
 // TODO change here.
-const lonlatList = [
+const data = [
   [131.952623346905, 31.68851745137, '2020-1-1 00:07:26.6', 41, '日向灘', 1.5],
   [
     137.89692002991,
@@ -3701,6 +3701,13 @@ const lonlatList = [
   ],
 ];
 
+const LON = 0;
+const LAT = 1;
+const DATETIME = 2;
+const DEPTH = 3;
+const AREA = 4;
+const MAGNITUDE = 5;
+
 function init() {
   const map = new OpenLayers.Map('basicMap');
   const mapnik = new OpenLayers.Layer.OSM();
@@ -3728,22 +3735,24 @@ function init() {
   //   offset
   // );
 
-  for (let i = 0; i < lonlatList.length; i++) {
-    const lonlat = lonlatList[i];
-    const pos = new OpenLayers.LonLat(lonlat[0], lonlat[1]).transform(
+  for (let i = 0; i < data.length; i++) {
+    const d = data[i];
+    const pos = new OpenLayers.LonLat(d[LON], d[LAT]).transform(
       fromProjection,
       toProjection
     );
     // const marker = new OpenLayers.Marker(pos, icon);
     const marker = new OpenLayers.Marker(pos);
-    // hover.
+    // add enevt.
     let popup = null;
     marker.events.register('click', marker, function() {
       popup = new OpenLayers.Popup.FramedCloud(
         'Popup',
         pos,
         null,
-        `<p>${lonlat[4]}</p>`,
+        `<p>area: ${d[AREA]}</p>
+        <p>depth: ${d[DEPTH]}</p>
+        <p>magnitude: ${d[MAGNITUDE]}</p>`,
         null,
         false
       );

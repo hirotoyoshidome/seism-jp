@@ -13,6 +13,7 @@ import csv
 # CONST
 DOWNLOAD_PATH = "./data/"
 
+
 # MAIN
 def main() -> None:
     urls = [
@@ -55,13 +56,13 @@ def main() -> None:
 
 
 # FUNCTION
-def get_data_from_web(url:str, key: str) -> str:
+def get_data_from_web(url: str, key: str) -> str:
     """
     Get Seism data from web that JMA.
     """
     selector = "#menu > li > ul > pre"
     response = requests.get(url)
-    soup = BeautifulSoup(response.content, 'html.parser')
+    soup = BeautifulSoup(response.content, "html.parser")
     data = soup.select(selector)[0]
     if data is not None:
         data = str(data).replace("<pre>\n", "").replace("</pre>", "")

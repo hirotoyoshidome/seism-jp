@@ -7,6 +7,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index() -> Any:
+    # TODO ref database.
     return render_template("index.html")
 
 

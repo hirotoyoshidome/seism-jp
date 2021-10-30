@@ -120,10 +120,14 @@ def get_lonlat_list(df: Any) -> None:
     """
     get lonlat list for open street map.
     """
-    nda = df.loc[:, ["convd_lng", "convd_lat"]].to_numpy()
+    nda = df.loc[
+        :, ["convd_lng", "convd_lat", "date_time", "depth", "area", "magnitude"]
+    ].to_numpy()
     res = []
     for d in nda:
-        tmp = "[{0},{1}]".format(d[0], d[1])
+        tmp = "[{0},{1},'{2}',{3},'{4}',{5}]".format(
+            d[0], d[1], d[2], d[3], d[4], (d[5] if d[5] != "-" else 0)
+        )
         res.append(tmp)
     print(",\n".join(res))
 

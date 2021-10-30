@@ -3,6 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 from typing import Any
 import csv
+import time
 
 
 # convert to csv file from txt.
@@ -53,6 +54,7 @@ def main() -> None:
         df = df.drop(["lat", "lng"], axis=1)
 
         # get_lonlat_list(df)
+        time.sleep(5)
 
 
 # FUNCTION

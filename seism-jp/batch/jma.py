@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 from typing import Any
 import csv
 import time
+import mysql.connector
 
 
 # convert to csv file from txt.
@@ -13,10 +14,16 @@ import time
 
 # CONST
 DOWNLOAD_PATH = "./data/"
+DB_HOST = "localhost"
+DB_PORT = 3306
+DB_NAME = "seismjp"
+DB_USER = "root"
+DB_PASSWORD = "root"
 
 
 # MAIN
 def main() -> None:
+    conn, cur = connect_db()
     urls = [
         "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200101.html",
         "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200102.html",
@@ -53,8 +60,12 @@ def main() -> None:
 
         df = df.drop(["lat", "lng"], axis=1)
 
+        insert_data_from_jma(cur, df)
+
         # get_lonlat_list(df)
         time.sleep(5)
+
+    close_connect_db(conn, cur)
 
 
 # FUNCTION
@@ -188,6 +199,66 @@ def get_lonlat_list(df: Any) -> None:
         )
         res.append(tmp)
     print(",\n".join(res))
+
+
+def connect_db() -> Any:
+    """
+    connect db.
+    """
+    conn = mysql.connector.connect(
+        host=DB_HOST,
+        port=DB_PORT,
+        user=DB_USER,
+        password=DB_PASSWORD,
+        database=DB_NAME,
+        use_unicode=True,
+        # charset="utf8mb4",
+    )
+    conn.autocommit = True
+    if not conn.is_connected():
+        conn.close()
+        print("Can not connect DB.")
+        exit(1)
+    cur = conn.cursor(dictionary=True)
+    return conn, cur
+
+
+def close_connect_db(conn: Any, cur: Any) -> None:
+    """
+    close connection.
+    """
+    cur.close()
+    conn.close()
+
+
+def insert_data_from_jma(cur: Any, df: Any) -> None:
+    """
+    insert data to db from jma.
+    """
+    nda = df.to_numpy()
+    sql = """
+    INSERT INTO jma (area, lat, lng, depth, magnitude, date_time)
+    VALUES (%s, %s, %s, %s, %s, %s);
+    """
+    date_time_idx = 0
+    depth_idx = 1
+    magnitude_idx = 2
+    area_idx = 3
+    lat_idx = 4
+    lng_idx = 5
+
+    for d in nda:
+        cur.execute(
+            sql,
+            (
+                d[area_idx],
+                d[lat_idx],
+                d[lng_idx],
+                d[depth_idx],
+                d[magnitude_idx],
+                d[date_time_idx],
+            ),
+        )
 
 
 if __name__ == "__main__":

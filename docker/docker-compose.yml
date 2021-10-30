@@ -1,0 +1,37 @@
+version: '3'
+
+networks:
+  default:
+    driver: bridge
+
+services:
+    python:
+      build: ./python
+      ports:
+        - "5000:5000"
+      command: bash -c "flask run --host 0.0.0.0 --port 5000"
+      container_name: seismjp_python
+      volumes:
+        - ../seism-jp/:/var/www/html/seism-jp
+      networks:
+        - default
+      depends_on:
+        - mysql
+    mysql:
+      image: mysql:5.7.36
+      container_name: seismjp_mysql
+      environment:
+        - MYSQL_ROOT_PASSWORD=root
+        - MYSQL_DATABASE=seimsjp
+        - MYSQL_USER=seimsjp
+        - MYSQL_PASSWORD=seimsjp
+        - TZ=Asia/Tokyo
+      volumes:
+        - ./mysql/data:/var/lib/mysql
+        - ./mysql/conf:/etc/mysql/conf.d
+      command:
+        - --innodb-use-native-aio=0
+      ports:
+        - "3306:3306"
+      networks:
+        - default

@@ -1,2 +1,4 @@
 OpenLayers*
 node_modules
+docker/mysql/data/*
+__pycache__

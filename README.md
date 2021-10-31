@@ -41,3 +41,17 @@ CREATE TABLE `jma` (
   PRIMARY KEY (`id`)
 );
 ```
+
+### OTHER COMMAND
+
+* delete all unused process.
+
+```
+docker rm $(docker ps -q -a)
+```
+
+* delete all unused image.
+
+```
+docker image prune
+```

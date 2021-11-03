@@ -2,3 +2,5 @@ OpenLayers*
 node_modules
 docker/mysql/data/*
 __pycache__
+seism-jp/batch/data/*
+!seism-jp/batch/data/.gitkeep

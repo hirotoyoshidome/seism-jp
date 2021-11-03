@@ -19,7 +19,7 @@ function init() {
     toProjection
   );
   // all view japan.
-  const zoom = 6;
+  const zoom = 5;
   map.addLayer(mapnik);
   map.setCenter(position, zoom);
 
@@ -50,7 +50,8 @@ function init() {
         'Popup',
         pos,
         null,
-        `<p>area: ${d[AREA]}</p>
+        `<p>datetime: ${d[DATETIME]}</p>
+        <p>area: ${d[AREA]}</p>
         <p>depth: ${d[DEPTH]}</p>
         <p>magnitude: ${d[MAGNITUDE]}</p>`,
         null,

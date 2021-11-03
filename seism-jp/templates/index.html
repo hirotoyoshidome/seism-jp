@@ -8,7 +8,26 @@
     <script src="static/js/map.js"></script>
   </head>
   <body onload="init();">
-    <div id="basicMap"></div>
+    <div class="contents">
+      <form class="search" method="GET">
+        <div class="search__row">
+          <label class="search__label">FROM</label>
+          <input type="date" name="from" value="2020-01-01" />
+        </div>
+        <div class="search__row">
+          <label class="search__label">TO</label>
+          <input type="date" name="to" value="2020-01-02" />
+        </div>
+        <div class="search__row">
+          <label class="search__label">LIMIT</label>
+          <input type="number" name="limit" value="5" />
+        </div>
+        <div class="search__row">
+          <input type="submit" value="search" />
+        </div>
+      </form>
+      <div id="basicMap"></div>
+    </div>
     <input type="hidden" id="seismList" value="{{ data.seism_data_list }}" />
   </body>
 </html>

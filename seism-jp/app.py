@@ -10,7 +10,7 @@ app = Flask(__name__)
 @app.route("/")
 def index() -> Any:
     conn, cur = connect_db()
-    datetime_format = '%Y-%m-%d %h:%i:%s'
+    datetime_format = "%Y-%m-%d %h:%i:%s"
     datetime_from = "2020-01-01"
     datetime_to = "2020-01-02"
     sql = """
@@ -25,8 +25,8 @@ def index() -> Any:
     WHERE STR_TO_DATE(date_time, %(fmt)s) BETWEEN %(from)s and %(to)s;
     """
 
-    g_from = request.args.get('from', None)
-    g_to = request.args.get('to', None)
+    g_from = request.args.get("from", None)
+    g_to = request.args.get("to", None)
 
     if g_from is not None:
         datetime_from = g_from

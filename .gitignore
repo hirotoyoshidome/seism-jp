@@ -4,3 +4,5 @@ docker/mysql/data/*
 __pycache__
 seism-jp/batch/data/*
 !seism-jp/batch/data/.gitkeep
+seism-jp/batch/input/*
+!seism-jp/batch/input/.gitkeep

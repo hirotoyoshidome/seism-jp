@@ -9,7 +9,7 @@ services:
       build: ./python
       ports:
         - "5000:5000"
-      command: bash -c "flask run --host 0.0.0.0 --port 5000"
+      command: bash -c "flask run --host 0.0.0.0 --port 5000 --debugger --reload"
       container_name: seismjp_python
       volumes:
         - ../seism-jp/:/var/www/html/seism-jp

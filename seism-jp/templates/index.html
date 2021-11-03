@@ -7,8 +7,8 @@
     <script src="static/js/OpenLayers-2.13.1/OpenLayers.js"></script>
     <script src="static/js/map.js"></script>
   </head>
-  {{ data.test }}
   <body onload="init();">
     <div id="basicMap"></div>
+    <input type="hidden" id="seismList" value="{{ data.seism_data_list }}" />
   </body>
 </html>

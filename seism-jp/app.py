@@ -10,9 +10,12 @@ app = Flask(__name__)
 @app.route("/")
 def index() -> Any:
     conn, cur = connect_db()
+
     datetime_format = "%Y-%m-%d %h:%i:%s"
     datetime_from = "2020-01-01"
     datetime_to = "2020-01-02"
+    limit = 5
+
     sql = """
     SELECT id,
            area,
@@ -22,21 +25,26 @@ def index() -> Any:
            magnitude,
            date_time
     FROM jma
-    WHERE STR_TO_DATE(date_time, %(fmt)s) BETWEEN %(from)s and %(to)s;
+    WHERE STR_TO_DATE(date_time, %(fmt)s) BETWEEN %(from)s and %(to)s
+    LIMIT %(limit)s;
     """
 
     g_from = request.args.get("from", None)
     g_to = request.args.get("to", None)
+    g_limit = request.args.get("limit", None)
 
     if g_from is not None:
         datetime_from = g_from
     if g_to is not None:
         datetime_to = g_to
+    if g_limit is not None:
+        limit = int(g_limit)
 
     params = {
         "fmt": datetime_format,
         "from": datetime_from,
         "to": datetime_to,
+        "limit": limit,
     }
     cur.execute(sql, params)
     result = cur.fetchall()

@@ -11,6 +11,7 @@ docker-compose up -d --build
 ```
 
 * http://127.0.0.1:5000
+* http://127.0.0.1:5000/?from=2020-01-02&to=2020-01-03
 
 * JS
 

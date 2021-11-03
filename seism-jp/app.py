@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from typing import Any
 from .db import connect_db, close_connect_db
 import json
@@ -10,11 +10,35 @@ app = Flask(__name__)
 @app.route("/")
 def index() -> Any:
     conn, cur = connect_db()
+    datetime_format = '%Y-%m-%d %h:%i:%s'
+    datetime_from = "2020-01-01"
+    datetime_to = "2020-01-02"
     sql = """
-    SELECT *
-    FROM jma;
+    SELECT id,
+           area,
+           lat,
+           lng,
+           depth,
+           magnitude,
+           date_time
+    FROM jma
+    WHERE STR_TO_DATE(date_time, %(fmt)s) BETWEEN %(from)s and %(to)s;
     """
-    cur.execute(sql, ())
+
+    g_from = request.args.get('from', None)
+    g_to = request.args.get('to', None)
+
+    if g_from is not None:
+        datetime_from = g_from
+    if g_to is not None:
+        datetime_to = g_to
+
+    params = {
+        "fmt": datetime_format,
+        "from": datetime_from,
+        "to": datetime_to,
+    }
+    cur.execute(sql, params)
     result = cur.fetchall()
     close_connect_db(conn, cur)
 

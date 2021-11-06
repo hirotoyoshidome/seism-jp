@@ -11,17 +11,20 @@ html, body {
     height: 100%;
     margin: 0;
 }
-.search {
+.menu {
     width: 20%;
 }
-.search__row {
-    margin: 10px 0;
+.search {
+    &__row {
+        margin: 10px 0;
+    }
+    &__label {
+        display: inline-block;
+        width: 45px;
+        margin-right: 5px;
+    }
 }
-.search__label {
-    display: inline-block;
-    width: 45px;
-    margin-right: 5px;
-}
+
 #map {
     width: 80%;
 }

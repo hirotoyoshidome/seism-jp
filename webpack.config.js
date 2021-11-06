@@ -4,7 +4,8 @@ module.exports = {
   mode: "development",
   devtool: false,
   entry: {
-    app: "./seism-jp/static/js/index.js",
+    earthquakes: "./seism-jp/static/js/earthquakes/index.js",
+    volcanoes: "./seism-jp/static/js/volcanoes/index.js",
   },
   output: {
     path: path.resolve(__dirname, "seism-jp/static/js/bundles"),

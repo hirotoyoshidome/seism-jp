@@ -2,31 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Point of Earthquake.</title>
+    <title>Seism-JP</title>
   </head>
   <body>
-    <div class="contents">
-      <form class="search" method="GET">
-        <div class="search__row">
-          <label class="search__label">FROM</label>
-          <input type="date" name="from" value="2020-01-01" />
-        </div>
-        <div class="search__row">
-          <label class="search__label">TO</label>
-          <input type="date" name="to" value="2020-01-02" />
-        </div>
-        <div class="search__row">
-          <label class="search__label">LIMIT</label>
-          <input type="number" name="limit" value="5" />
-        </div>
-        <div class="search__row">
-          <input type="submit" value="search" />
-        </div>
-      </form>
-      <div id="map"></div>
-    </div>
-    <input type="hidden" id="seismList" value="{{ data.seism_data_list }}" />
-    <input type="hidden" id="geoData" value="{{ data.geo_data }}" />
-    <script src="static/js/bundles/app.js"></script>
+    Index
+    <ul>
+      <li><a href="/earthquakes">Earthquakes</a></li>
+      <li><a href="/volcanoes">Volcanoes</a></li>
+    </ul>
   </body>
 </html>

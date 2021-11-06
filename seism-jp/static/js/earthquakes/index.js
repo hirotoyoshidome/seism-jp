@@ -1,5 +1,5 @@
 import L from 'leaflet';
-import '../scss/app.scss';
+import '../../scss/app.scss';
 
 // consts.
 const LON = 0;

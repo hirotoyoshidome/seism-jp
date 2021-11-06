@@ -9,6 +9,10 @@ app = Flask(__name__)
 
 @app.route("/")
 def index() -> Any:
+   return render_template("index.html")
+
+@app.route("/earthquakes")
+def earthquakes() -> Any:
     conn, cur = connect_db()
 
     datetime_format = "%Y-%m-%d %h:%i:%s"
@@ -64,8 +68,11 @@ def index() -> Any:
         "seism_data_list": json.dumps({"data": seism_data_list}),
         "geo_data": json.dumps(geo_data),
     }
-    return render_template("index.html", data=data)
+    return render_template("earthquakes/index.html", data=data)
 
+@app.route("/volcanoes")
+def volcanoes() -> Any:
+   return render_template("volcanoes/index.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

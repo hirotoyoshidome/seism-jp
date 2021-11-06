@@ -6,7 +6,7 @@ const data = JSON.parse(volcanoesData.value)['features'];
 
 // init.
 const center = [36.2048, 138.2529];
-const zoom = 8;
+const zoom = 6;
 const map = L.map('map').setView(center, zoom);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution:

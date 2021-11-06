@@ -8,6 +8,7 @@ import mysql.connector
 
 
 # convert to csv file from txt.
+# and insert db.
 # credit :
 # https://www.data.jma.go.jp/svd/eqev/data/daily_map/index.html
 

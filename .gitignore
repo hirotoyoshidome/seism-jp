@@ -10,3 +10,6 @@ seism-jp/batch/input/*
 
 # bundles.
 seism-jp/static/js/bundles
+
+# other.
+dump.sql

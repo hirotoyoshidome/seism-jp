@@ -10,6 +10,7 @@ import geojson
 
 # create geojson file.
 # exists dbf file that same dir and same file name dbf file.
+# credit : https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N03-v3_0.html
 
 shp_path = "./input/saitama.shp"
 output_path = "./output/saitama.geojson"

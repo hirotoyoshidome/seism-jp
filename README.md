@@ -29,6 +29,9 @@ mysql -uroot -proot
 
 * execute schema.sql queries.
 
+### CREDIT
+* [HERE](./CREDITS.md)
+
 ### OTHER COMMAND
 
 * delete all unused process.

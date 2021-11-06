@@ -45,3 +45,11 @@ docker rm $(docker ps -q -a)
 ```
 docker image prune
 ```
+
+* dump.
+
+```
+docker exec -it seismjp_mysql bash
+mysqldump --single-transaction -uroot -proot seismjp > dump.sql
+docker cp seismjp_mysql:/dump.sql ./
+```

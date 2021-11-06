@@ -9,7 +9,8 @@ app = Flask(__name__)
 
 @app.route("/")
 def index() -> Any:
-   return render_template("index.html")
+    return render_template("index.html")
+
 
 @app.route("/earthquakes")
 def earthquakes() -> Any:
@@ -70,9 +71,17 @@ def earthquakes() -> Any:
     }
     return render_template("earthquakes/index.html", data=data)
 
+
 @app.route("/volcanoes")
 def volcanoes() -> Any:
-   return render_template("volcanoes/index.html")
+    # TODO tmp
+    fil = open("batch/output/volcanoes.geojson", "r")
+    volcanoes_data = json.load(fil)
+    data = {
+        "volcanoes_data": json.dumps(volcanoes_data),
+    }
+    return render_template("volcanoes/index.html", data=data)
+
 
 if __name__ == "__main__":
     app.run(debug=True)

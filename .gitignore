@@ -1,9 +1,12 @@
-OpenLayers*
 node_modules
 docker/mysql/data/*
 __pycache__
+
+# batch.
 seism-jp/batch/data/*
 !seism-jp/batch/data/.gitkeep
 seism-jp/batch/input/*
 !seism-jp/batch/input/.gitkeep
+
+# bundles.
 seism-jp/static/js/bundles

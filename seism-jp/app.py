@@ -56,8 +56,13 @@ def index() -> Any:
             [r["lng"], r["lat"], r["date_time"], r["depth"], r["area"], r["magnitude"]]
         )
 
+    # TODO tmp
+    fil = open("batch/output/saitama.geojson", "r")
+    geo_data = json.load(fil)
+
     data = {
         "seism_data_list": json.dumps({"data": seism_data_list}),
+        "geo_data": json.dumps(geo_data),
     }
     return render_template("index.html", data=data)
 

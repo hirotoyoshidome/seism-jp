@@ -17,11 +17,8 @@ docker-compose up -d --build
 
 ```
 npm ci
+npm watch
 ```
-
-### DOWNLOAD
-* https://openlayers.org/two/
-  * unzip donwloaded file.
 
 ### DATABASE
 

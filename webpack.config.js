@@ -10,4 +10,23 @@ module.exports = {
     path: path.resolve(__dirname, "seism-jp/static/js/bundles"),
     filename: "[name].js",
   },
+  module: {
+    rules: [
+      {
+        test: /\.scss/,
+        use: [
+          "style-loader",
+          {
+            loader: "css-loader",
+            options: {
+              url: false
+            }
+          },
+          {
+            loader: "sass-loader",
+          }
+        ]
+      }
+    ]
+  }
 }

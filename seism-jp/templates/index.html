@@ -3,11 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <title>Point of Earthquake.</title>
-    <link rel="stylesheet" href="static/css/style.css" />
-    <script src="static/js/OpenLayers-2.13.1/OpenLayers.js"></script>
-    <script src="static/js/map.js"></script>
   </head>
-  <body onload="init();">
+  <body>
     <div class="contents">
       <form class="search" method="GET">
         <div class="search__row">
@@ -26,8 +23,10 @@
           <input type="submit" value="search" />
         </div>
       </form>
-      <div id="basicMap"></div>
+      <div id="map"></div>
     </div>
     <input type="hidden" id="seismList" value="{{ data.seism_data_list }}" />
+    <input type="hidden" id="geoData" value="{{ data.geo_data }}" />
+    <script src="static/js/bundles/app.js"></script>
   </body>
 </html>

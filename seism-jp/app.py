@@ -29,7 +29,7 @@ def earthquakes() -> Any:
            depth,
            magnitude,
            date_time
-    FROM jma
+    FROM hypocenter
     WHERE STR_TO_DATE(date_time, %(fmt)s) BETWEEN %(from)s and %(to)s
     LIMIT %(limit)s;
     """

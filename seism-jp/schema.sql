@@ -1,4 +1,4 @@
-CREATE TABLE `jma` (
+CREATE TABLE `hypocenter` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `area` varchar(255) NULL,
   `lat` varchar(255) NULL,

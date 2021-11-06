@@ -25,37 +25,37 @@ DB_PASSWORD = "root"
 def main() -> None:
     conn, cur = connect_db()
     urls = [
-        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200101.html",
-        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200102.html",
-        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200103.html",
-        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200104.html",
-        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200105.html",
-        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200106.html",
-        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200107.html",
-        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200108.html",
-        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200109.html",
-        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200110.html",
-        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200111.html",
-        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200112.html",
-        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200113.html",
-        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200114.html",
-        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200115.html",
-        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200116.html",
-        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200117.html",
-        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200118.html",
-        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200119.html",
-        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200120.html",
-        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200121.html",
-        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200122.html",
-        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200123.html",
-        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200124.html",
-        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200125.html",
-        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200126.html",
-        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200127.html",
-        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200128.html",
-        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200129.html",
-        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200130.html",
-        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200131.html",
+        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200201.html",
+        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200202.html",
+        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200203.html",
+        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200204.html",
+        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200205.html",
+        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200206.html",
+        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200207.html",
+        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200208.html",
+        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200209.html",
+        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200210.html",
+        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200211.html",
+        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200212.html",
+        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200213.html",
+        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200214.html",
+        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200215.html",
+        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200216.html",
+        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200217.html",
+        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200218.html",
+        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200219.html",
+        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200220.html",
+        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200221.html",
+        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200222.html",
+        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200223.html",
+        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200224.html",
+        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200225.html",
+        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200226.html",
+        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200227.html",
+        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200228.html",
+        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200229.html",
+        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200230.html",
+        "https://www.data.jma.go.jp/svd/eqev/data/daily_map/20200231.html",
     ]
 
     for url in urls:
@@ -89,7 +89,7 @@ def main() -> None:
 
         df = df.drop(["lat", "lng"], axis=1)
 
-        insert_data_from_jma(cur, df)
+        insert_data_from_hypocenter(cur, df)
 
         # get_lonlat_list(df)
         print(url, " is inserted.")
@@ -261,13 +261,13 @@ def close_connect_db(conn: Any, cur: Any) -> None:
     conn.close()
 
 
-def insert_data_from_jma(cur: Any, df: Any) -> None:
+def insert_data_from_hypocenter(cur: Any, df: Any) -> None:
     """
-    insert data to db from jma.
+    insert data to db from hypocenter.
     """
     nda = df.to_numpy()
     sql = """
-    INSERT INTO jma (area, lat, lng, depth, magnitude, date_time)
+    INSERT INTO hypocenter (area, lat, lng, depth, magnitude, date_time)
     VALUES (%s, %s, %s, %s, %s, %s);
     """
     date_time_idx = 0

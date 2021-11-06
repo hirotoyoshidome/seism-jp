@@ -2,7 +2,7 @@ import L from 'leaflet';
 import '../../scss/app.scss';
 
 // consts.
-const LON = 0;
+const LNG = 0;
 const LAT = 1;
 const DATETIME = 2;
 const DEPTH = 3;
@@ -35,7 +35,7 @@ const icon = L.icon({
 });
 for (let i = 0; i < data.length; i++) {
   const d = data[i];
-  const pos = [d[LAT], d[LON]];
+  const pos = [d[LAT], d[LNG]];
   const popup = `<p>datetime: ${d[DATETIME]}</p>
     <p>area: ${d[AREA]}</p>
     <p>depth: ${d[DEPTH]}</p>

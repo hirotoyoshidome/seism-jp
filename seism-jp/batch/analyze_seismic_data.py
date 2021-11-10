@@ -8,10 +8,14 @@ import matplotlib.pyplot as plt
 filepath = "./20110311-ishinomaki.csv"
 start_row = 7
 
+# sampling cycle.
 # 5min data.
 # all datapoint count is 30,000
 # 300s / 30,000 = 0.01s/1datapoint.
 dt = 0.01
+# Hz
+f0 = 0.5
+f1 = 100
 
 
 def main():
@@ -29,21 +33,35 @@ def main():
             UD.append(row[2])
 
     # numpy array.
-    ns = np.array(NS).astype(np.float)
-    ew = np.array(EW).astype(np.float)
-    ud = np.array(UD).astype(np.float)
+    ns = np.array(NS).astype(np.float128)
+    ew = np.array(EW).astype(np.float128)
+    ud = np.array(UD).astype(np.float128)
 
-    ns_max = np.amax(ns)
-    ew_max = np.amax(ew)
-    ud_max = np.amax(ud)
+    # ns_max = np.amax(ns)
+    # ew_max = np.amax(ew)
+    # ud_max = np.amax(ud)
 
-    print("NS MAX : ", ns_max)
-    print("EW MAX : ", ew_max)
-    print("UD MAX : ", ud_max)
+    # print("NS MAX : ", ns_max)
+    # print("EW MAX : ", ew_max)
+    # print("UD MAX : ", ud_max)
 
-    generate_image(ns, "NS")
-    generate_image(ew, "EW")
-    generate_image(ud, "UD")
+    # generate_image(ns, "NS")
+    # generate_image(ew, "EW")
+    # generate_image(ud, "UD")
+
+    F_ns = np.fft.fft(ns)
+    N_ns = F_ns.shape[0]
+    Freq_ns = np.fft.fftfreq(N_ns, d=dt)
+    X_ns = Freq_ns / 10
+
+    fh = high_filter(X_ns)
+    fl = low_filter(Freq_ns)
+    # fc = fc_filter(Freq_ns)
+    # fa = fc * fh * fl
+    # print(fa)
+
+    # generate_image(F_ns, "sample")
+    # generate_image(Freq_ns, "sample")
 
 
 def generate_image(datapoint, name):
@@ -53,6 +71,26 @@ def generate_image(datapoint, name):
     ax = fig.add_subplot(1, 1, 1, xlabel="second", ylabel=name)
     ax.plot(X, Y)
     plt.savefig("output/{0}.png".format(name))
+
+
+def high_filter(datapoint):
+    return 1 / np.sqrt(
+        1
+        + 0.694 * datapoint ** 2
+        + 0.241 * datapoint ** 4
+        + 0.0557 * datapoint ** 6
+        + 0.009664 * datapoint ** 8
+        + 0.00134 * datapoint ** 10
+        + 0.000155 * datapoint ** 12
+    )
+
+
+def fc_filter(freq):
+    return np.sqrt(1 / freq)
+
+
+def low_filter(freq):
+    return np.sqrt(1 - np.exp(-((freq / f0) ** 3)))
 
 
 if __name__ == "__main__":

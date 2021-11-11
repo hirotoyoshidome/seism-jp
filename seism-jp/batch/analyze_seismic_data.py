@@ -52,12 +52,6 @@ def main():
     # print("EW MAX : ", ew_max)
     # print("UD MAX : ", ud_max)
 
-    F = np.fft.fft(ns)
-    N = F.shape[0]
-
-    # because Gaussian distribution, reduce calclation.
-    N2 = N / 2
-
     # NOTE: fault.
     # Freq = np.fft.fftfreq(N, d=dt)
     # X = Freq / 10
@@ -68,18 +62,14 @@ def main():
     # IF = F * fa
     # f2 = np.fft.ifft(IF)
 
-    print(F)
+    # fourier -> filtering -> inverse fourier.
+    ns2 = filter_with_fourier(ns)
+    ew2 = filter_with_fourier(ew)
+    ud2 = filter_with_fourier(ud)
 
-    for i in range(1, int(N2) + 1):
-        freq = i / (N * dt)
-        x = freq / 10
-
-        fh = high_filter(x)
-        fl = low_filter(freq)
-        fc = fc_filter(freq)
-        fa = fc * fh * fl
-        print(fa)
-        break
+    generate_image(ns2, "NS2")
+    generate_image(ew2, "EW2")
+    generate_image(ud2, "UD2")
 
 
 # FUNCTIONS
@@ -92,17 +82,26 @@ def generate_image(datapoint, name):
     plt.savefig("output/{0}.png".format(name))
 
 
-# numpy ver .
-# def high_filter(datapoint):
-#     return 1 / np.sqrt(
-#         1
-#         + 0.694 * datapoint ** 2
-#         + 0.241 * datapoint ** 4
-#         + 0.0557 * datapoint ** 6
-#         + 0.009664 * datapoint ** 8
-#         + 0.00134 * datapoint ** 10
-#         + 0.000155 * datapoint ** 12
-#     )
+def filter_with_fourier(datapoint):
+    F = np.fft.fft(datapoint)
+    N = F.shape[0]
+    # because Gaussian distribution, reduce calclation.
+    N2 = N / 2
+
+    for i in range(1, int(N2) + 1):
+        freq = i / (N * dt)
+        x = freq / 10
+
+        fh = high_filter(x)
+        fl = low_filter(freq)
+        fc = fc_filter(freq)
+        fa = fc * fh * fl
+
+        F[i - 1] = F[i - 1] * fa
+        F[N - i] = F[N - i] * fa
+
+    F2 = np.fft.ifft(F)
+    return F2
 
 
 def high_filter(x):
@@ -117,31 +116,32 @@ def high_filter(x):
     )
 
 
-# def fc_filter(freq):
-#     return np.sqrt(1 / freq)
-
-# numpy ver .
-# def fc_filter(freq):
-#     tmp = np.sqrt(1 / freq)
-#     tmp[np.isnan(tmp)] = 0
-#     return tmp
-
-
 def fc_filter(freq):
     return np.sqrt(1 / freq)
 
 
-# def low_filter(freq):
-#     return np.sqrt(1 - np.exp(-((freq / f0) ** 3)))
+def low_filter(freq):
+    return math.sqrt(1 - math.exp(-((freq / f0) ** 3)))
 
+
+# numpy ver .
+# def high_filter(datapoint):
+#     return 1 / np.sqrt(
+#         1
+#         + 0.694 * datapoint ** 2
+#         + 0.241 * datapoint ** 4
+#         + 0.0557 * datapoint ** 6
+#         + 0.009664 * datapoint ** 8
+#         + 0.00134 * datapoint ** 10
+#         + 0.000155 * datapoint ** 12
+#     )
+# numpy ver .
+# def fc_filter(freq):
+#     return np.sqrt(1 / freq)
 # numpy ver .
 # def low_filter(freq):
 #     max_freq = np.max(freq)
 #     return np.sqrt(1 - np.exp(-(((freq - max_freq) / (f0 - max_freq)) ** 3)))
-
-
-def low_filter(freq):
-    return math.sqrt(1 - math.exp(-((freq / f0) ** 3)))
 
 
 if __name__ == "__main__":

@@ -1,6 +1,7 @@
 import numpy as np
 import csv
 import matplotlib.pyplot as plt
+import math
 
 
 # credit : https://www.data.jma.go.jp/svd/eqev/data/kyoshin/jishin/110311_tohokuchiho-taiheiyouoki/wave/L311E081.png
@@ -20,6 +21,7 @@ f1 = 100
 # np.set_printoptions(threshold=np.inf)
 
 
+# MAIN
 def main():
     NS, EW, UD = [], [], []
 
@@ -39,38 +41,48 @@ def main():
     ew = np.array(EW).astype(np.float128)
     ud = np.array(UD).astype(np.float128)
 
-    # ns_max = np.amax(ns)
-    # ew_max = np.amax(ew)
-    # ud_max = np.amax(ud)
-
-    # print("NS MAX : ", ns_max)
-    # print("EW MAX : ", ew_max)
-    # print("UD MAX : ", ud_max)
-
     # generate_image(ns, "NS")
     # generate_image(ew, "EW")
     # generate_image(ud, "UD")
 
-    F_ns = np.fft.fft(ns)
-    N_ns = F_ns.shape[0]
-    Freq_ns = np.fft.fftfreq(N_ns, d=dt)
-    X_ns = Freq_ns / 10
+    # ns_max = np.amax(ns)
+    # ew_max = np.amax(ew)
+    # ud_max = np.amax(ud)
+    # print("NS MAX : ", ns_max)
+    # print("EW MAX : ", ew_max)
+    # print("UD MAX : ", ud_max)
 
-    fh = high_filter(X_ns)
-    fl = low_filter(Freq_ns)
-    print(fl)
-    # TODO
-    # fc = fc_filter(Freq_ns)
+    F = np.fft.fft(ns)
+    N = F.shape[0]
+
+    # because Gaussian distribution, reduce calclation.
+    N2 = N / 2
+
+    # NOTE: fault.
+    # Freq = np.fft.fftfreq(N, d=dt)
+    # X = Freq / 10
+    # fh = high_filter(X)
+    # fl = low_filter(Freq)
+    # fc = fc_filter(Freq)
     # fa = fc * fh * fl
+    # IF = F * fa
+    # f2 = np.fft.ifft(IF)
 
-    # IF_ns = F_ns * fa
-    # f2 = np.fft.ifft(IF_ns)
+    print(F)
 
-    # generate_image(f2, "sample")
-    # generate_image(F_ns, "sample")
-    # generate_image(Freq_ns, "sample")
+    for i in range(1, int(N2) + 1):
+        freq = i / (N * dt)
+        x = freq / 10
+
+        fh = high_filter(x)
+        fl = low_filter(freq)
+        fc = fc_filter(freq)
+        fa = fc * fh * fl
+        print(fa)
+        break
 
 
+# FUNCTIONS
 def generate_image(datapoint, name):
     fig = plt.figure(figsize=(20, 4), dpi=72, facecolor="white", linewidth=5, edgecolor="orange")
     X = [x * dt for x in range(datapoint.shape[0])]
@@ -80,35 +92,56 @@ def generate_image(datapoint, name):
     plt.savefig("output/{0}.png".format(name))
 
 
-def high_filter(datapoint):
-    return 1 / np.sqrt(
+# numpy ver .
+# def high_filter(datapoint):
+#     return 1 / np.sqrt(
+#         1
+#         + 0.694 * datapoint ** 2
+#         + 0.241 * datapoint ** 4
+#         + 0.0557 * datapoint ** 6
+#         + 0.009664 * datapoint ** 8
+#         + 0.00134 * datapoint ** 10
+#         + 0.000155 * datapoint ** 12
+#     )
+
+
+def high_filter(x):
+    return 1 / math.sqrt(
         1
-        + 0.694 * datapoint ** 2
-        + 0.241 * datapoint ** 4
-        + 0.0557 * datapoint ** 6
-        + 0.009664 * datapoint ** 8
-        + 0.00134 * datapoint ** 10
-        + 0.000155 * datapoint ** 12
+        + 0.694 * x ** 2
+        + 0.241 * x ** 4
+        + 0.0557 * x ** 6
+        + 0.009664 * x ** 8
+        + 0.00134 * x ** 10
+        + 0.000155 * x ** 12
     )
 
 
 # def fc_filter(freq):
 #     return np.sqrt(1 / freq)
 
+# numpy ver .
+# def fc_filter(freq):
+#     tmp = np.sqrt(1 / freq)
+#     tmp[np.isnan(tmp)] = 0
+#     return tmp
+
 
 def fc_filter(freq):
-    tmp = np.sqrt(1 / freq)
-    tmp[np.isnan(tmp)] = 0
-    return tmp
+    return np.sqrt(1 / freq)
 
 
 # def low_filter(freq):
 #     return np.sqrt(1 - np.exp(-((freq / f0) ** 3)))
 
+# numpy ver .
+# def low_filter(freq):
+#     max_freq = np.max(freq)
+#     return np.sqrt(1 - np.exp(-(((freq - max_freq) / (f0 - max_freq)) ** 3)))
+
 
 def low_filter(freq):
-    max_freq = np.max(freq)
-    return np.sqrt(1 - np.exp(-(((freq - max_freq) / (f0 - max_freq)) ** 3)))
+    return math.sqrt(1 - math.exp(-((freq / f0) ** 3)))
 
 
 if __name__ == "__main__":

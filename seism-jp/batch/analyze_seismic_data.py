@@ -58,11 +58,15 @@ def main():
 
     fh = high_filter(X_ns)
     fl = low_filter(Freq_ns)
+    print(fl)
     # TODO
-    fc = fc_filter(Freq_ns)
+    # fc = fc_filter(Freq_ns)
     # fa = fc * fh * fl
-    # print(fa)
 
+    # IF_ns = F_ns * fa
+    # f2 = np.fft.ifft(IF_ns)
+
+    # generate_image(f2, "sample")
     # generate_image(F_ns, "sample")
     # generate_image(Freq_ns, "sample")
 

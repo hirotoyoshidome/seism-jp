@@ -18,6 +18,9 @@ dt = 0.01
 f0 = 0.5
 f1 = 100
 
+# second
+tau = 0.3
+
 # np.set_printoptions(threshold=np.inf)
 
 
@@ -67,9 +70,19 @@ def main():
     ew2 = filter_with_fourier(ew)
     ud2 = filter_with_fourier(ud)
 
-    generate_image(ns2, "NS2")
-    generate_image(ew2, "EW2")
-    generate_image(ud2, "UD2")
+    # generate_image(ns2, "NS2")
+    # generate_image(ew2, "EW2")
+    # generate_image(ud2, "UD2")
+
+    # composition of vectors.
+    C = composition_vectors(ns2, ew2, ud2)
+    # sort desc.
+    sC = -np.sort(-C)
+
+    tau_index = math.floor(tau / dt) - 1
+    mI = calc_measured_seismic_intensity(sC[tau_index])
+    I = predict_seismic_intensity(mI)
+    print("measured_seismic_intensity is {0}, seismic_intensity is {1}".format(mI, I))
 
 
 # FUNCTIONS
@@ -102,6 +115,37 @@ def filter_with_fourier(datapoint):
 
     F2 = np.fft.ifft(F)
     return F2
+
+
+def composition_vectors(f1, f2, f3):
+    return np.sqrt(f1 ** 2 + f2 ** 2 + f3 ** 2)
+
+
+def calc_measured_seismic_intensity(alpha):
+    return 2 * math.log10(alpha) + 0.94
+
+
+def predict_seismic_intensity(mi):
+    if mi < 0.5:
+        return 0
+    elif mi < 1.5:
+        return 1
+    elif mi < 2.5:
+        return 2
+    elif mi < 3.5:
+        return 3
+    elif mi < 4.5:
+        return 4
+    elif mi < 5:
+        return -5
+    elif mi < 5.5:
+        return 5
+    elif mi < 6:
+        return -6
+    elif mi < 6.5:
+        return 6
+    elif mi > 6.5:
+        return 7
 
 
 def high_filter(x):

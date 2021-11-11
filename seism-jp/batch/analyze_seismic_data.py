@@ -17,7 +17,7 @@ dt = 0.01
 f0 = 0.5
 f1 = 100
 
-np.set_printoptions(threshold=np.inf)
+# np.set_printoptions(threshold=np.inf)
 
 
 def main():
@@ -58,7 +58,8 @@ def main():
 
     fh = high_filter(X_ns)
     fl = low_filter(Freq_ns)
-    # fc = fc_filter(Freq_ns)
+    # TODO
+    fc = fc_filter(Freq_ns)
     # fa = fc * fh * fl
     # print(fa)
 
@@ -87,12 +88,23 @@ def high_filter(datapoint):
     )
 
 
+# def fc_filter(freq):
+#     return np.sqrt(1 / freq)
+
+
 def fc_filter(freq):
-    return np.sqrt(1 / freq)
+    tmp = np.sqrt(1 / freq)
+    tmp[np.isnan(tmp)] = 0
+    return tmp
+
+
+# def low_filter(freq):
+#     return np.sqrt(1 - np.exp(-((freq / f0) ** 3)))
 
 
 def low_filter(freq):
-    return np.sqrt(1 - np.exp(-((freq / f0) ** 3)))
+    max_freq = np.max(freq)
+    return np.sqrt(1 - np.exp(-(((freq - max_freq) / (f0 - max_freq)) ** 3)))
 
 
 if __name__ == "__main__":

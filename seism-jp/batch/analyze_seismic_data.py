@@ -17,6 +17,8 @@ dt = 0.01
 f0 = 0.5
 f1 = 100
 
+np.set_printoptions(threshold=np.inf)
+
 
 def main():
     NS, EW, UD = [], [], []

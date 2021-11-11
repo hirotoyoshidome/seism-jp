@@ -76,6 +76,8 @@ def main():
 
     # composition of vectors.
     C = composition_vectors(ns2, ew2, ud2)
+    # generate_image(C, "Composition")
+
     # sort desc.
     sC = -np.sort(-C)
 

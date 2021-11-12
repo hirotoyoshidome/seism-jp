@@ -3,7 +3,7 @@
 
 #define N 256
 
-// gcc -o index index.c
+// gcc -o index.o index.c
 
 int main(void) {
   printf("HelloWorld!\n");

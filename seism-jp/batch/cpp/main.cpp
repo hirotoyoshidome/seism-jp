@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 
-// g++ -o main main.cpp
+// g++ -o main.o main.cpp
 
 
 int main() {

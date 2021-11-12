@@ -1,5 +1,5 @@
 #include "hello.hpp"
-
+#include "greet.hpp"
 
 // compile. -> create hello.o, main2.o
 //  g++ -c main2.cpp hello.cpp
@@ -12,4 +12,5 @@
 
 int main() {
     hello();
+    greet();
 }

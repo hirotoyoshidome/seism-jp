@@ -19,3 +19,4 @@ osgeo==0.0.1
 geopandas==0.10.2
 geopy==2.2.0
 folium==0.12.1
+PyQt5==5.15.6

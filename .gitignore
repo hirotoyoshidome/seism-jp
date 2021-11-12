@@ -13,3 +13,6 @@ seism-jp/static/js/bundles
 
 # other.
 dump.sql
+
+# cpp
+build

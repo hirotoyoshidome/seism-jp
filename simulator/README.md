@@ -1,7 +1,10 @@
 # simulator
 
 ## P wave S wave.
-### run
+### Description
+* p wave and s wave simulation.
+
+### Run
 
 ```
 cd p-s_wave
@@ -9,7 +12,10 @@ python3 ps_wave.py
 ```
 
 ## QT
-### run
+### Description
+* sample.
+
+### Run
 
 ```
 cd qt

@@ -1,7 +1,7 @@
 import sys
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow, QGridLayout, QPushButton, QLabel
-
+from sample import Sample
 
 app = QtWidgets.QApplication(sys.argv)
 screen = app.primaryScreen()
@@ -13,13 +13,16 @@ class StartWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setGeometry(0, 0, width, height)
-        self.setWindowTitle("Sample")
+        self.setWindowTitle("Home")
         self.initUI()
 
     def click_button(self):
-        self.new_description = QLabel()
-        self.new_description.setText("Pushed!")
-        self.grid.addWidget(self.new_description, 0, 1)
+        # self.new_description = QLabel()
+        # self.new_description.setText("Pushed!")
+        # self.grid.addWidget(self.new_description, 0, 1)
+        self.new = Sample(self)
+        self.close()
+        self.new.show()
 
     def initUI(self):
         self.main_widget = QWidget()

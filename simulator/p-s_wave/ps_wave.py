@@ -9,17 +9,17 @@ dt = 1
 
 
 def main():
-    # generate_image(p_wave, s_wave, "wave")
+    generate_image(p_wave, s_wave, "wave")
     generate_animation()
 
 
 # FUNCTION.
 def p_wave(t):
-    return 4 * t
+    return 8 * t
 
 
 def s_wave(t):
-    return 8 * t
+    return 4 * t
 
 
 def generate_image(f, f2, name):

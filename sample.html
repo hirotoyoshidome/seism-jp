@@ -14,6 +14,7 @@
   <script>
     // init.
     const center = [37.6762, 139.6503];
+    const hypocenter = [38.1033,142.8600];
     const zoom = 7;
     const map = L.map('map').setView(center, zoom);
     const tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
@@ -23,14 +24,18 @@
     tileLayer.addTo(map);
 
     // marker.
+    // duration_of_preliminary_tremors were referenced from the jma graph.
     const posList = [
-      [38.4277, 141.2994],
-      [36.6140, 140.5653],
-      [36.0595, 139.6669]
+      {lonlat: [38.4277, 141.2994], name: '石巻', duration_of_preliminary_tremors: 15},
+      {lonlat: [36.6140, 140.5653], name: '常陸太田', duration_of_preliminary_tremors: 29},
+      {lonlat: [36.0595, 139.6669], name: '久喜', duration_of_preliminary_tremors: 40},
     ]
     for (let i = 0; i < posList.length; i++) {
-      const marker = L.marker(posList[i]).addTo(map);
+      const marker = L.marker(posList[i].lonlat).addTo(map);
+      marker.bindPopup(`${posList[i].name}`);
     }
+    const marker = L.marker(hypocenter).addTo(map);
+    marker.bindPopup(`震央`);
 
     // const marker = L.marker(center).addTo(map);
     // marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
@@ -43,12 +48,15 @@
     // ]).addTo(map);
 
     // // circle.
-    // const circle = L.circle([51.508, -0.11], {
-    //   color: 'red',
-    //   fillColor: '#f03',
-    //   fillOpacity: 0.5,
-    //   radius: 500
-    // }).addTo(map);
+    for (let i = 0; i < posList.length; i++) {
+      const circle = L.circle(posList[i].lonlat, {
+        color: 'red',
+        fillColor: '#f03',
+        fillOpacity: 0.1,
+        radius: 3**2 * posList[i].duration_of_preliminary_tremors * 1000
+      }).addTo(map);
+    }
+    
 
     // // events.
     // const popup = L.popup();

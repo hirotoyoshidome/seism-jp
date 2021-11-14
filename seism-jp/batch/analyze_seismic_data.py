@@ -2,11 +2,14 @@ import numpy as np
 import csv
 import matplotlib.pyplot as plt
 import math
+import datetime
 
 
 # credit : https://www.data.jma.go.jp/svd/eqev/data/kyoshin/jishin/110311_tohokuchiho-taiheiyouoki/wave/L311E081.png
 
-filepath = "./20110311-ishinomaki.csv"
+filepath_ishinomaki = "./20110311-ishinomaki.csv"
+filepath_hitachiota = "./20110311-hitachiota.csv"
+filepath_kuki = "./20110311-kuki.csv"
 start_row = 7
 
 # sampling cycle.
@@ -28,16 +31,32 @@ tau = 0.3
 def main():
     NS, EW, UD = [], [], []
 
-    with open(filepath, "r") as fil:
+    with open(filepath_kuki, "r") as fil:
         reader = csv.reader(fil)
-        # skip.
-        for i in range(start_row):
-            next(reader)
 
-        for row in reader:
+        lat = None
+        lon = None
+        init_time = None
+
+        for i, row in enumerate(reader):
+            if i < start_row:
+                # skip.
+                if i == 1:
+                    lat = row[0].split('=')[-1].strip()
+                elif i == 2:
+                    lon = row[0].split('=')[-1].strip()
+                elif i == 5:
+                    init_time = row[0].split('=')[-1].strip()
+                continue
+
             NS.append(row[0])
             EW.append(row[1])
             UD.append(row[2])
+
+    init_time = datetime.datetime.strptime(init_time, '%Y %m %d %H %M %S')
+
+    print(lat, lon)
+    print(init_time)
 
     # numpy array.
     ns = np.array(NS).astype(np.float128)

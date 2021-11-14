@@ -7,9 +7,11 @@ import datetime
 
 # credit : https://www.data.jma.go.jp/svd/eqev/data/kyoshin/jishin/110311_tohokuchiho-taiheiyouoki/wave/L311E081.png
 
-filepath_ishinomaki = "./20110311-ishinomaki.csv"
-filepath_hitachiota = "./20110311-hitachiota.csv"
-filepath_kuki = "./20110311-kuki.csv"
+filepath_list = [
+    "./20110311-ishinomaki.csv",
+    "./20110311-hitachiota.csv",
+    "./20110311-kuki.csv",
+]
 start_row = 7
 
 # sampling cycle.
@@ -29,9 +31,16 @@ tau = 0.3
 
 # MAIN
 def main():
+    for filepath in filepath_list:
+        name = filepath.split("-")[-1].replace(".csv", "")
+        analyze_seismic(filepath, name)
+
+
+# FUNCTIONS
+def analyze_seismic(filepath, name):
     NS, EW, UD = [], [], []
 
-    with open(filepath_kuki, "r") as fil:
+    with open(filepath, "r") as fil:
         reader = csv.reader(fil)
 
         lat = None
@@ -42,18 +51,18 @@ def main():
             if i < start_row:
                 # skip.
                 if i == 1:
-                    lat = row[0].split('=')[-1].strip()
+                    lat = row[0].split("=")[-1].strip()
                 elif i == 2:
-                    lon = row[0].split('=')[-1].strip()
+                    lon = row[0].split("=")[-1].strip()
                 elif i == 5:
-                    init_time = row[0].split('=')[-1].strip()
+                    init_time = row[0].split("=")[-1].strip()
                 continue
 
             NS.append(row[0])
             EW.append(row[1])
             UD.append(row[2])
 
-    init_time = datetime.datetime.strptime(init_time, '%Y %m %d %H %M %S')
+    init_time = datetime.datetime.strptime(init_time, "%Y %m %d %H %M %S")
 
     print(lat, lon)
     print(init_time)
@@ -63,9 +72,9 @@ def main():
     ew = np.array(EW).astype(np.float128)
     ud = np.array(UD).astype(np.float128)
 
-    # generate_image(ns, "NS")
-    # generate_image(ew, "EW")
-    # generate_image(ud, "UD")
+    # generate_image(ns, "NS-{0}".format(name))
+    # generate_image(ew, "EW-{0}".format(name))
+    # generate_image(ud, "UD-{0}".format(name))
 
     # ns_max = np.amax(ns)
     # ew_max = np.amax(ew)
@@ -89,13 +98,13 @@ def main():
     ew2 = filter_with_fourier(ew)
     ud2 = filter_with_fourier(ud)
 
-    # generate_image(ns2, "NS2")
-    # generate_image(ew2, "EW2")
-    # generate_image(ud2, "UD2")
+    # generate_image(ns2, "NS2-{0}".format(name))
+    # generate_image(ew2, "EW2-{0}".format(name))
+    # generate_image(ud2, "UD2-{0}".format(name))
 
     # composition of vectors.
     C = composition_vectors(ns2, ew2, ud2)
-    # generate_image(C, "Composition")
+    # generate_image(C, "Composition-{0}".format(name))
 
     # sort desc.
     sC = -np.sort(-C)
@@ -106,7 +115,6 @@ def main():
     print("measured_seismic_intensity is {0}, seismic_intensity is {1}".format(mI, I))
 
 
-# FUNCTIONS
 def generate_image(datapoint, name):
     fig = plt.figure(figsize=(20, 4), dpi=72, facecolor="white", linewidth=5, edgecolor="orange")
     X = [x * dt for x in range(datapoint.shape[0])]

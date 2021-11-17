@@ -20,3 +20,4 @@ dump.sql
 
 # cpp
 build
+script/cpp/libs

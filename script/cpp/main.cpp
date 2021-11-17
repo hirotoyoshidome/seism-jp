@@ -1,8 +1,9 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <Eigen/Dense>
 
-// g++ -o main.o main.cpp
+using Eigen::MatrixXd;
 
 
 int main() {
@@ -25,6 +26,14 @@ int main() {
     while (getline(ifs, str2)) {
         std::cout << str2 << std::endl;
     }
+
+    // use eigen.
+    MatrixXd m(2,2);
+    m(0,0) = 3;
+    m(1,0) = 2.5;
+    m(0,1) = -1;
+    m(1,1) = m(1,0) + m(0,1);
+    std::cout << m << std::endl;
 
     return 0;
 }

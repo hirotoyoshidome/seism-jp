@@ -17,3 +17,6 @@ format-js:
 
 type-python:
 	mypy .
+
+run-sample-cesium:
+	node ./node_modules/st/bin/server.js -nc -i samplemap/3d-sample.html

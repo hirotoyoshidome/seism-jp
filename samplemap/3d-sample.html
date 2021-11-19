@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>3d-sample</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+    <link rel="stylesheet" href="node_modules/cesium/Build/Cesium/Widgets/widgets.css">
+    <style>
+        body {
+          margin: 0;
+        }
+        .cesium {
+          position: absolute;
+          left: 0;
+          top: 0;
+          right: 0;
+          bottom: 0;
+        }
+    </style>
+  </head>
+  <body>
+    <div id="cesium" class="cesium"></div>
+    <script src="node_modules/cesium/Build/Cesium/Cesium.js"></script>
+    <script>
+      (function() {
+        "use strict";
+        var viewer = new Cesium.Viewer("cesium");
+        viewer.camera.setView({
+          destination: Cesium.Cartesian3.fromDegrees(138, 29, 4000000),
+            orientation: {
+              heading: 0,
+              pitch: -1.4,
+              roll: 0
+            }
+        });
+        const url = 'http://localhost:1337/samplemap/tiles/13102_chuo-ku/tileset.json';
+        viewer.scene.primitives.add(new Cesium.Cesium3DTileset({url : url})); 
+      }());
+    </script>
+  </body>
+</html>

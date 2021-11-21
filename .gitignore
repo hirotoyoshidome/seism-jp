@@ -21,6 +21,7 @@ dump.sql
 # cpp
 build
 script/cpp/libs
+script/gml/libs
 
 # sample
 samplemap/tiles

@@ -10,3 +10,4 @@
 * https://www.data.jma.go.jp/svd/eqev/data/kyoshin/jishin/110311_tohokuchiho-taiheiyouoki/wave/L311CBB1.png
 * https://www.data.jma.go.jp/svd/eqev/data/kyoshin/jishin/110311_tohokuchiho-taiheiyouoki/wave/L31151E1.png
 * https://www.engineering-eye.com/rpt/w013_kagawa/pdf/kagawa_013JMAint.pdf
+* https://www.geospatial.jp/ckan/dataset/plateau-tokyo23ku-citygml-2020

@@ -6,14 +6,13 @@ using namespace std;
 #include <Eigen/Dense>
 using Eigen::MatrixXd;
 
-// TODO
-// #include <xercesc/dom/DOM.hpp>
-// #include <xercesc/dom/DOMElement.hpp>
-// #include <xercesc/dom/DOMNode.hpp>
-// #include <xercesc/dom/DOMText.hpp>
-// #include <xercesc/parsers/XercesDOMParser.hpp>
-// #include <xercesc/sax/HandlerBase.hpp>
-// using namespace xercesc;
+#include <xercesc/dom/DOM.hpp>
+#include <xercesc/dom/DOMElement.hpp>
+#include <xercesc/dom/DOMNode.hpp>
+#include <xercesc/dom/DOMText.hpp>
+#include <xercesc/parsers/XercesDOMParser.hpp>
+#include <xercesc/sax/HandlerBase.hpp>
+using namespace xercesc;
 
 
 int main() {

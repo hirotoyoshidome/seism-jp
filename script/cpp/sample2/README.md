@@ -1,19 +1,4 @@
-## build
-* main.cpp
-
-```
-make build
-```
-
-* main2.cpp
-
-```
-mkdir build
-cd build
-cmake ..
-make
-./a.out
-```
+* see Makefile.
 
 ## libs
 * https://downloads.apache.org/xerces/c/3/sources/

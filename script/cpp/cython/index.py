@@ -1,4 +1,4 @@
-import sample_add
+import mycalc
 
 
-print(sample_add.sample_add(2, 3))
+print(mycalc.sample_add(2, 3))

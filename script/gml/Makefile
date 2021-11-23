@@ -1,4 +1,4 @@
-.PHONY:	compile	link	run	all	clean
+.PHONY:	compile	link	run	build	clean
 .SILENT:
 compile:
 	g++ -c main.cpp SampleSaxHandler.cpp

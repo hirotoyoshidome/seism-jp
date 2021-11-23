@@ -10,9 +10,11 @@ using namespace std;
 using namespace xercesc;
 
 
-int main()
+int main(int argc, char *argv[])
 {
     cout << "start." << endl;
+
+    char* xmlpath = argv[1];
 
     // TODO
     // read local gml.
@@ -44,7 +46,7 @@ int main()
         cout << "hander init." << endl;
         parser->setContentHandler(&handler);
         cout << "parse start." << endl;
-        parser->parse("./example.xml");
+        parser->parse(xmlpath);
         cout << "parse end." << endl;
     } catch (...) {
         cerr << "load error." << endl;

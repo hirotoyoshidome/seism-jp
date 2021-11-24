@@ -61,7 +61,6 @@ def earthquakes() -> Any:
             [r["lng"], r["lat"], r["date_time"], r["depth"], r["area"], r["magnitude"]]
         )
 
-    # TODO tmp
     fil = open("batch/output/saitama.geojson", "r")
     geo_data = json.load(fil)
 
@@ -74,7 +73,6 @@ def earthquakes() -> Any:
 
 @app.route("/volcanoes")
 def volcanoes() -> Any:
-    # TODO tmp
     fil = open("batch/output/volcanoes.geojson", "r")
     volcanoes_data = json.load(fil)
     data = {

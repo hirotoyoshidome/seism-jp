@@ -1,6 +1,7 @@
 #include "SampleSaxHandler.hpp"
 
 #include <iostream>
+#include <fstream>
 
 #include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <xercesc/sax2/XMLReaderFactory.hpp>
@@ -10,24 +11,27 @@ using namespace std;
 using namespace xercesc;
 
 
+void simpleReadFile(char* filepath)
+{
+    ifstream ifs(filepath);
+    std::string contents;
+    if (ifs.fail()) {
+        std::cerr << "Failed to open file." << std::endl;
+    } else {
+        while (getline(ifs, contents)) {
+            cout << contents << endl;
+        }
+    }
+}
+
 int main(int argc, char *argv[])
 {
     cout << "start." << endl;
 
     char* xmlpath = argv[1];
 
-    // TODO
-    // read local gml.
-    // std::ifstream ifs("./53392546_bldg_6697_op2.gml");
-    // std::string contents;
-    // if (ifs.fail()) {
-    //     std::cerr << "Failed to open file." << std::endl;
-    //     return -1;
-    // }
-    // while (getline(ifs, contents)) {
-    //     cout << contents << endl;
-    // }
-
+    // read file.
+    // simpleReadFile(xmlpath);
 
     try {
         XMLPlatformUtils::Initialize();

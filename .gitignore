@@ -25,3 +25,6 @@ script/gml/libs
 
 # sample
 samplemap/tiles
+
+# lib
+matplotlibcpp.h

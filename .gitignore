@@ -14,17 +14,20 @@ seism-jp/static/js/bundles
 # other.
 dump.sql
 
-# compiled
+# compiled.
 *.o
 *.out
 
-# cpp
+# cpp.
 build
 script/cpp/libs
 script/gml/libs
 
-# sample
+# data.
+script/gml/data
+
+# sample.
 samplemap/tiles
 
-# lib
+# libs.
 matplotlibcpp.h

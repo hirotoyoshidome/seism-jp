@@ -1,3 +1,4 @@
+# python.
 node_modules
 docker/mysql/data/*
 __pycache__
@@ -11,24 +12,23 @@ seism-jp/batch/input/*
 # bundles.
 seism-jp/static/js/bundles
 
-# other.
+# db.
 dump.sql
 
-# compiled.
+# compiled cpp.
 *.o
 *.out
 MAIN
 
-# cpp.
+# cpp libs.
 build
 script/cpp/libs
 script/gml/libs
+simulator/wxwidgets/libs
+matplotlibcpp.h
 
 # data.
 script/gml/data
 
-# sample.
+# sample map.
 samplemap/tiles
-
-# libs.
-matplotlibcpp.h

@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
 
     try {
         XMLPlatformUtils::Initialize();
-        cout << "init." << endl;
+        // cout << "init." << endl;
     }
     catch (const XMLException& toCatch) {
         cerr << "init error." << endl;
@@ -45,15 +45,15 @@ int main(int argc, char *argv[])
     }
 
     SAX2XMLReader* parser = XMLReaderFactory::createXMLReader();
-    cout << "parser init." << endl;
+    // cout << "parser init." << endl;
 
     try {
         SampleSaxHandler handler;
-        cout << "hander init." << endl;
+        // cout << "hander init." << endl;
         parser->setContentHandler(&handler);
-        cout << "parse start." << endl;
+        // cout << "parse start." << endl;
         parser->parse(xmlpath);
-        cout << "parse end." << endl;
+        // cout << "parse end." << endl;
     } catch (...) {
         cerr << "load error." << endl;
     }

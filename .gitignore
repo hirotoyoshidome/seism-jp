@@ -17,6 +17,7 @@ dump.sql
 # compiled.
 *.o
 *.out
+MAIN
 
 # cpp.
 build

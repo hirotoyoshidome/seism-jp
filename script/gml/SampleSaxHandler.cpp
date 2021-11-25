@@ -4,12 +4,18 @@
 using namespace std;
 using namespace xercesc;
 
+const char* DESCRIPTION = "description";
+
 // when start tag.
 void SampleSaxHandler::startElement(const XMLCh* const uri, const XMLCh* const localname,
                                     const XMLCh* const qname, const Attributes& attrs)
 {
     char* name = XMLString::transcode(localname);
-    cout << "start : " << name << endl;
+
+    if (*name == *DESCRIPTION)
+    {
+        cout << "start : " << name << endl;
+    }
     XMLString::release(&name);
 }
 
@@ -18,7 +24,10 @@ void SampleSaxHandler::endElement(const XMLCh* const uri, const XMLCh* const loc
                                   const XMLCh* const qname)
 {
     char* name = XMLString::transcode(localname);
-    cout << "end : " << name << endl;
+    if (*name == *DESCRIPTION)
+    {
+        cout << "end : " << name << endl;
+    }
     XMLString::release(&name);
 }
 
@@ -31,6 +40,6 @@ void SampleSaxHandler::characters(const XMLCh* const chars, const XMLSize_t leng
     char* text = XMLString::transcode(buffer);
     delete[] buffer;
 
-    cout << "text : " << text << endl;
+    // cout << "text : " << text << endl;
     XMLString::release(&text);
 }

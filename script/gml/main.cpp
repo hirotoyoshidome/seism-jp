@@ -28,7 +28,9 @@ int main(int argc, char *argv[])
 {
     cout << "start." << endl;
 
-    char* xmlpath = argv[1];
+    // const char* xmlpath = argv[1];
+
+    const char* xmlpath = "./data/codelists_2/LandUse_genChange.xml";
 
     // read file.
     // simpleReadFile(xmlpath);

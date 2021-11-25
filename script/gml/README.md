@@ -9,8 +9,9 @@ make install
 
 ### data
 * https://www.geospatial.jp/ckan/dataset/plateau-tokyo23ku-citygml-2020
+* https://www.chisou.go.jp/tiiki/toshisaisei/itoshisaisei/iur/index.html
   * 533946
-  * コードリストZIP
+  * codelist 1.5
 * all unzip and move to script/gml/data directory.
 
 

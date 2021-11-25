@@ -2,7 +2,7 @@ import xml.etree.ElementTree as ET
 
 
 # CONSTS
-file_path = "../53392546_bldg_6697_op2.gml"
+file_path = "../data/533946_2/brid/53394600_brid_6697_op2.gml"
 
 gml = "{http://www.opengis.net/gml}"
 grp = "{http://www.opengis.net/citygml/cityobjectgroup/2.0}"

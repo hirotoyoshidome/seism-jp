@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 
     // const char* xmlpath = argv[1];
 
-    const char* xmlpath = "./data/codelists_2/LandUse_genChange.xml";
+    const char* xmlpath = "./data/1.5/LandUse_function.xml";
 
     // read file.
     // simpleReadFile(xmlpath);

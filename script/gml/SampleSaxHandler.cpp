@@ -15,6 +15,8 @@ void SampleSaxHandler::startElement(const XMLCh* const uri, const XMLCh* const l
     if (*name == *DESCRIPTION)
     {
         cout << "start : " << name << endl;
+        // cout << "start : " << &attrs << endl;
+        // cout << "start : " << attrs << endl;
     }
     XMLString::release(&name);
 }

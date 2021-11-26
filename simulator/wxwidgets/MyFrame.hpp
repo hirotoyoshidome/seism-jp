@@ -9,6 +9,8 @@ class MyFrame : public wxFrame
 public:
     wxButton* button;
     wxPanel* panel;
+    wxTextCtrl* textbox;
+
 public:
     // Constructor.
     MyFrame();
@@ -19,6 +21,7 @@ public:
     void onClose(wxCloseEvent& event);
     void click(wxCommandEvent& event);
     void onPaint(wxCommandEvent& event);
+    void onEnter(wxCommandEvent& event);
 };
 
 #endif

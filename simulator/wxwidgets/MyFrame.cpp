@@ -3,11 +3,11 @@
 
 
 // Constructor.
-MyFrame::MyFrame() : wxFrame(nullptr, wxID_ANY, "Sample App")
+MyFrame::MyFrame() : wxFrame(nullptr, wxID_ANY, "Sample App", wxPoint(50, 50), wxSize(800, 600))
 {
     auto menuBar = new wxMenuBar;
 
-    // sample menu.
+    // menu.
     auto menuFile = new wxMenu;
     menuFile->Append(wxID_OPEN, _T("&Open"));
     menuFile->Append(wxID_SAVE, _T("&Save"));
@@ -17,9 +17,15 @@ MyFrame::MyFrame() : wxFrame(nullptr, wxID_ANY, "Sample App")
 
     SetMenuBar(menuBar);
 
+    // panel.
+    panel = new wxPanel(this, wxID_ANY, wxPoint(0,0), wxSize(100,100));
+    // button.
+    button = new wxButton(panel, wxID_HIGHEST, _T("Hello World"), wxPoint(5,5), wxSize(100, 100));
+
     // event handler.
-    Bind(wxEVT_CLOSE_WINDOW, &MyFrame::OnClose, this);
+    Bind(wxEVT_CLOSE_WINDOW, &MyFrame::onClose, this);
     Bind(wxEVT_MENU, &MyFrame::click, this);
+    Bind(wxEVT_BUTTON, &MyFrame::onPaint, this);
 
     // lambda version.
     // Bind(wxEVT_MENU, [this](wxCommandEvent&) { Close(true); }, wxID_EXIT);
@@ -30,7 +36,7 @@ MyFrame::~MyFrame()
 {
 }
 
-void MyFrame::OnClose(wxCloseEvent& event)
+void MyFrame::onClose(wxCloseEvent& event)
 {
     std::cout << "close" << std::endl;
     Destroy();
@@ -47,4 +53,9 @@ void MyFrame::click(wxCommandEvent& event)
         std::cout << "close" << std::endl;
         Close(true);
     }
+}
+
+void MyFrame::onPaint(wxCommandEvent& event)
+{
+    std::cout << "click button!!" << "clicked!!" << std::endl;
 }

@@ -7,14 +7,18 @@
 class MyFrame : public wxFrame
 {
 public:
+    wxButton* button;
+    wxPanel* panel;
+public:
     // Constructor.
     MyFrame();
 
     // Destructor.
     virtual ~MyFrame();
 
-    void OnClose(wxCloseEvent& event);
+    void onClose(wxCloseEvent& event);
     void click(wxCommandEvent& event);
+    void onPaint(wxCommandEvent& event);
 };
 
 #endif

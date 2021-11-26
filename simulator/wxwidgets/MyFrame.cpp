@@ -5,10 +5,10 @@
 // Constructor.
 MyFrame::MyFrame() : wxFrame(nullptr, wxID_ANY, "Sample App", wxPoint(50, 50), wxSize(800, 600))
 {
-    auto menuBar = new wxMenuBar;
+    wxMenuBar* menuBar = new wxMenuBar;
 
     // menu.
-    auto menuFile = new wxMenu;
+    wxMenu* menuFile = new wxMenu;
     menuFile->Append(wxID_OPEN, _T("&Open"));
     menuFile->Append(wxID_SAVE, _T("&Save"));
     menuFile->AppendSeparator();

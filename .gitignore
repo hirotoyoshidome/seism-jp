@@ -25,6 +25,7 @@ build
 script/cpp/libs
 script/gml/libs
 simulator/wxwidgets/libs
+simulator/opengl/libs
 matplotlibcpp.h
 
 # data.

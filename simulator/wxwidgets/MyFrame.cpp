@@ -24,6 +24,9 @@ MyFrame::MyFrame() : wxFrame(nullptr, wxID_ANY, "Sample App", wxPoint(50, 50), w
     // text box.
     textbox = new wxTextCtrl(panel, wxID_HIGHEST, _T(""), wxPoint(10,10), wxSize(100, 20), wxTE_PROCESS_ENTER);
 
+    // NOTE: web view
+    // view = new wxWebView(this, wxID_ANY, "https://google.com/", wxDefaultPosition, wxDefaultSize, wxWebViewBackendDefault, 0, "");
+
     // event handler.
     Bind(wxEVT_CLOSE_WINDOW, &MyFrame::onClose, this);
     Bind(wxEVT_MENU, &MyFrame::click, this);

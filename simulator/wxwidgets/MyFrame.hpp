@@ -10,6 +10,8 @@ public:
     wxButton* button;
     wxPanel* panel;
     wxTextCtrl* textbox;
+    // NOTE web view.
+    // wxWebView* view;
 
 public:
     // Constructor.

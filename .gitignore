@@ -18,5 +18,10 @@ dump.sql
 # cpp libs.
 script/gml/libs
 
+# compiled.
+*.o
+*.out
+MAIN
+
 # data.
 script/gml/data

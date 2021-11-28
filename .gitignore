@@ -15,21 +15,8 @@ seism-jp/static/js/bundles
 # db.
 dump.sql
 
-# compiled cpp.
-*.o
-*.out
-MAIN
-
 # cpp libs.
-build
-script/cpp/libs
 script/gml/libs
-simulator/wxwidgets/libs
-simulator/opengl/libs
-matplotlibcpp.h
 
 # data.
 script/gml/data
-
-# sample map.
-samplemap/tiles
